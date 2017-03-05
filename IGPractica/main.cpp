@@ -12,6 +12,9 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+void drawSmailey();
+void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius);
+
 int main() {
 
 	GLFWwindow* window;
@@ -140,44 +143,10 @@ int main() {
 		glVertex3f(2.5f, 3.f, 0.0f);
 		glEnd();*/
 
-		//Draw SMILE
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
-		glBegin(GL_POLYGON);
-
-		glColor3f(1.0, 1.0, 0.0);
-
-		//Face
-		glVertex3f(0.0, 3.0, 0.0);
-
-		glVertex3f(-1.5, 2.5, 0.0);
-		glVertex3f(-2.5, 1.5, 0.0);
-
-		glVertex3f(-3.0, 0.0, 0.0);
-		
-		glVertex3f(-2.5, -1.5, 0.0);
-		glVertex3f(-1.5, -2.5, 0.0);
-
-		glVertex3f(0.0, -3.0, 0.0);
-
-		glVertex3f(1.5, -2.5, 0.0);
-		glVertex3f(2.5, -1.5, 0.0);
-
-		glVertex3f(3.0, 0.0, 0.0);
-
-		glVertex3f(2.5, 1.5, 0.0);
-		glVertex3f(1.5, 2.5, 0.0);
-		glEnd();
-		
-		//Eyes
-		glPointSize(15.0);
-		glColor3f(0.0, 0.0, 0.0);
-		glBegin(GL_POINTS);
-		glVertex3f(1.0, 0.5, 0.0);
-		glVertex3f(-1.0, 0.5, 0.0);
-		glEnd();
-
+		drawSmailey();
+		drawSmailey(-5, 0, 1);
+		drawSmailey(-7, 0, 0.5);
+		drawSmailey(6, 5, 3);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -189,4 +158,102 @@ int main() {
 	exit(EXIT_SUCCESS);
 
 	return 0;
+}
+
+void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
+	//Draw SMILE
+	//Face
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex2f(posX, posY);
+	for (int i = 0; i <= 50; i++) {
+		glVertex2f(posX + (radius * cos(i * (3.14f * 2.0f) / 50.0f)), posY + (radius * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f));
+	}
+	glEnd();
+
+	//Eyes
+	glBegin(GL_POLYGON);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	for (int i = 0; i <= 20; i++) {
+		glVertex2f(posX - (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f));
+	}
+	glVertex3f(posX - (radius / 2), posY + (radius / 4), 0.0f);
+	glVertex3f(posX - (radius / 4), posY + (radius / 4), 0.0f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	for (int i = 0; i <= 20; i++) {
+		glVertex2f(posX + (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f));
+	}
+	glVertex3f(posX + (radius / 4), posY + (radius / 4), 0.0f);
+	glVertex3f(posX + (radius / 2), posY + (radius / 4), 0.0f);
+	glEnd();
+
+	glPointSize(radius*5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glBegin(GL_POINTS);
+	glVertex3f(posX - (radius / 3.05f), posY + (radius / 3.05f), 0.0f);
+	glVertex3f(posX + (radius / 2.35f), posY + (radius / 3.05f), 0.0f);
+	glEnd();
+
+	//Mouth
+	glBegin(GL_POLYGON);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	for (int i = 20; i >= 0; i--) {
+		glVertex2f(posX + ((radius / 2) * cos(i * 3.14f / 20.0f)), posY - (radius / 2.65f) + ((radius / 2) * sin(i * 3.14f / 20.0f) * -1.0f));
+	}
+	glEnd();
+}
+
+void drawSmailey() {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
+	//Draw SMILE
+	//Face
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex2f(0.0f, 0.0f);
+	for (int i = 0; i <= 50; i++) {
+		glVertex2f((2.0f * cos(i * (3.14f * 2.0f) / 50.0f)), (2.0f * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f));
+	}
+	glEnd();
+
+	//Eyes
+	glBegin(GL_POLYGON);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	for (int i = 0; i <= 20; i++) {
+		glVertex2f(-0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f));
+	}
+	glVertex3f(-1.0f, 0.5f, 0.0f);
+	glVertex3f(-0.5f, 0.5f, 0.0f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	for (int i = 0; i <= 20; i++) {
+		glVertex2f(0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f));
+	}
+	glVertex3f(0.5f, 0.5f, 0.0f);
+	glVertex3f(1.0f, 0.5f, 0.0f);
+	glEnd();
+
+	glPointSize(10.0);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glBegin(GL_POINTS);
+	glVertex3f(-0.65f, 0.65f, 0.0f);
+	glVertex3f(0.85f, 0.65f, 0.0f);
+	glEnd();
+
+	//Mouth
+	glBegin(GL_POLYGON);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	for (int i = 20; i >= 0; i--) {
+		glVertex2f((1.0f * cos(i * 3.14f / 20.0f)), -0.75f + (1.0f * sin(i * 3.14f / 20.0f) * -1.0f));
+	}
+	glEnd();
 }
