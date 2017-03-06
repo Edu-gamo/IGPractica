@@ -14,6 +14,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void drawSmailey();
 void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius);
+void drawHouse();
 
 int main() {
 
@@ -48,7 +49,7 @@ int main() {
 		glViewport(0, 0, screenWidth, screenHeight);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glClearColor(1.0, 0.0, 0.0, 1.0);
+		glClearColor(0.0, 1.0, 1.0, 1.0);
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -143,10 +144,61 @@ int main() {
 		glVertex3f(2.5f, 3.f, 0.0f);
 		glEnd();*/
 
-		drawSmailey();
-		drawSmailey(-5, 0, 1);
-		drawSmailey(-7, 0, 0.5);
-		drawSmailey(6, 5, 3);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
+
+		//Grass
+		glBegin(GL_POLYGON);
+		glColor3f(0.5f, 1.0f, 0.5f);
+		glVertex3f(-10.0f, -6.5f, 0.0f);
+		glVertex3f(-10.0f, -10.0f, 0.0f);
+		glVertex3f(10.0f, -10.0f, 0.0f);
+		glVertex3f(10.0f, -6.5f, 0.0f);
+
+		glVertex3f(9.0f, -6.3f, 0.0f);
+		glVertex3f(8.0f, -6.1f, 0.0f);
+		glVertex3f(7.0f, -6.4f, 0.0f);
+		glVertex3f(6.0f, -6.0f, 0.0f);
+		glVertex3f(5.0f, -6.3f, 0.0f);
+		glVertex3f(4.0f, -6.2f, 0.0f);
+		glVertex3f(3.0f, -6.5f, 0.0f);
+		glVertex3f(-3.0f, -6.5f, 0.0f);
+		glVertex3f(-4.0f, -6.2f, 0.0f);
+		glVertex3f(-5.0f, -6.3f, 0.0f);
+		glVertex3f(-6.0f, -6.0f, 0.0f);
+		glVertex3f(-7.0f, -6.4f, 0.0f);
+		glVertex3f(-8.0f, -6.3f, 0.0f);
+		glVertex3f(-9.0f, -6.4f, 0.0f);
+		glEnd();
+
+
+		glBegin(GL_POLYGON);
+		glColor3f(0.5f, 0.5f, 0.5f);
+		glVertex3f(-10.0f, -8.5f, 0.0f);
+		glVertex3f(-10.0f, -10.0f, 0.0f);
+		glVertex3f(10.0f, -10.0f, 0.0f);
+		glVertex3f(10.0f, -8.5f, 0.0f);
+
+		glVertex3f(9.0f, -8.3f, 0.0f);
+		glVertex3f(8.0f, -8.4f, 0.0f);
+		glVertex3f(7.0f, -8.1f, 0.0f);
+		glVertex3f(6.0f, -8.3f, 0.0f);
+		glVertex3f(5.0f, -8.0f, 0.0f);
+		glVertex3f(4.0f, -8.5f, 0.0f);
+		glVertex3f(3.0f, -8.2f, 0.0f);
+		glVertex3f(-3.0f, -8.2f, 0.0f);
+		glVertex3f(-4.0f, -8.5f, 0.0f);
+		glVertex3f(-5.0f, -8.0f, 0.0f);
+		glVertex3f(-6.0f, -8.3f, 0.0f);
+		glVertex3f(-7.0f, -8.1f, 0.0f);
+		glVertex3f(-8.0f, -8.4f, 0.0f);
+		glVertex3f(-9.0f, -8.3f, 0.0f);
+		glEnd();
+
+		drawHouse();
+
+		drawSmailey(-8, 7, 1);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -160,18 +212,105 @@ int main() {
 	return 0;
 }
 
-void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+void drawHouse() {
+	//House
+	glBegin(GL_TRIANGLE_STRIP);
+	glColor3f(0.9f, 0.6f, 0.1f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(-3.0f, -3.0f, 0.0f);
+	glVertex3f(3.0f, -3.0f, 0.0f);
+	glEnd();
 
-	//Draw SMILE
+	glBegin(GL_QUADS);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(-3.0f, -3.0f, 0.0f);
+	glVertex3f(-3.0f, -9.0f, 0.0f);
+	glVertex3f(3.0f, -9.0f, 0.0f);
+	glVertex3f(3.0f, -3.0f, 0.0f);
+	glEnd();
+
+	//Door
+	glBegin(GL_QUADS);
+	glColor3f(0.9f, 0.6f, 0.1f);
+	glVertex3f(-1.0f, -6.0f, 0.0f);
+	glVertex3f(-1.0f, -9.0f, 0.0f);
+	glVertex3f(1.0f, -9.0f, 0.0f);
+	glVertex3f(1.0f, -6.0f, 0.0f);
+	glEnd();
+
+	glLineWidth(1.0f);
+	glBegin(GL_LINES);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, -6.0f, 0.0f);
+	glVertex3f(0.0f, -9.0f, 0.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(0.1f, -7.5f, 0.0f);
+	glVertex3f(0.1f, -7.6f, 0.0f);
+	glVertex3f(0.3f, -7.6f, 0.0f);
+	glVertex3f(0.3f, -7.5f, 0.0f);
+
+	glVertex3f(-0.3f, -7.5f, 0.0f);
+	glVertex3f(-0.3f, -7.6f, 0.0f);
+	glVertex3f(-0.1f, -7.6f, 0.0f);
+	glVertex3f(-0.1f, -7.5f, 0.0f);
+	glEnd();
+
+	//Windows
+	glBegin(GL_QUADS);
+	glColor3f(0.8f, 0.8f, 0.8f);
+	glVertex3f(-2.25f, -3.5f, 0.0f);
+	glVertex3f(-2.25f, -5.0f, 0.0f);
+	glVertex3f(-1.0f, -5.0f, 0.0f);
+	glVertex3f(-1.0f, -3.5f, 0.0f);
+
+	glVertex3f(1.0f, -3.5f, 0.0f);
+	glVertex3f(1.0f, -5.0f, 0.0f);
+	glVertex3f(2.25f, -5.0f, 0.0f);
+	glVertex3f(2.25f, -3.5f, 0.0f);
+	glEnd();
+
+	glLineWidth(1.0f);
+	glBegin(GL_LINES);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(-1.6f, -3.5f, 0.0f);
+	glVertex3f(-1.6f, -5.0f, 0.0f);
+	glVertex3f(-1.0f, -4.25f, 0.0f);
+	glVertex3f(-2.25f, -4.25f, 0.0f);
+
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex3f(1.6f, -3.5f, 0.0f);
+	glVertex3f(1.6f, -5.0f, 0.0f);
+	glVertex3f(1.0f, -4.25f, 0.0f);
+	glVertex3f(2.25f, -4.25f, 0.0f);
+	glEnd();
+
+	//Chimney
+	glBegin(GL_QUADS);
+	glColor3f(0.75f, 0.45f, 0.02f);
+	glVertex3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+	glVertex3f(2.0f, -2.0f, 0.0f);
+	glVertex3f(2.0f, 1.0f, 0.0f);
+
+	glColor3f(0.6f, 0.3f, 0.0f);
+	glVertex3f(0.9f, 1.0f, 0.0f);
+	glVertex3f(0.9f, 0.85f, 0.0f);
+	glVertex3f(2.1f, 0.85f, 0.0f);
+	glVertex3f(2.1f, 1.0f, 0.0f);
+	glEnd();
+}
+
+void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
+
 	//Face
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(posX, posY);
+	glVertex3f(posX, posY, 0.0f);
 	for (int i = 0; i <= 50; i++) {
-		glVertex2f(posX + (radius * cos(i * (3.14f * 2.0f) / 50.0f)), posY + (radius * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f));
+		glVertex3f(posX + (radius * cos(i * (3.14f * 2.0f) / 50.0f)), posY + (radius * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f), 0.0f);
 	}
 	glEnd();
 
@@ -179,7 +318,7 @@ void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
 	glBegin(GL_POLYGON);
 	glColor3f(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i <= 20; i++) {
-		glVertex2f(posX - (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f));
+		glVertex3f(posX - (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f), 0.0f);
 	}
 	glVertex3f(posX - (radius / 2), posY + (radius / 4), 0.0f);
 	glVertex3f(posX - (radius / 4), posY + (radius / 4), 0.0f);
@@ -187,7 +326,7 @@ void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
 
 	glBegin(GL_POLYGON);
 	for (int i = 0; i <= 20; i++) {
-		glVertex2f(posX + (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f));
+		glVertex3f(posX + (radius / 2.65f) + ((radius / 8) * cos(i * 3.14f / 20.0f)), posY + (radius / 2.65f) + ((radius / 8) * sin(i * 3.14f / 20.0f) * 1.75f), 0.0f);
 	}
 	glVertex3f(posX + (radius / 4), posY + (radius / 4), 0.0f);
 	glVertex3f(posX + (radius / 2), posY + (radius / 4), 0.0f);
@@ -204,7 +343,7 @@ void drawSmailey(GLfloat posX, GLfloat posY, GLfloat radius) {
 	glBegin(GL_POLYGON);
 	glColor3f(0.0f, 0.0f, 0.0f);
 	for (int i = 20; i >= 0; i--) {
-		glVertex2f(posX + ((radius / 2) * cos(i * 3.14f / 20.0f)), posY - (radius / 2.65f) + ((radius / 2) * sin(i * 3.14f / 20.0f) * -1.0f));
+		glVertex3f(posX + ((radius / 2) * cos(i * 3.14f / 20.0f)), posY - (radius / 2.65f) + ((radius / 2) * sin(i * 3.14f / 20.0f) * -1.0f), 0.0f);
 	}
 	glEnd();
 }
@@ -218,9 +357,9 @@ void drawSmailey() {
 	//Face
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex2f(0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i <= 50; i++) {
-		glVertex2f((2.0f * cos(i * (3.14f * 2.0f) / 50.0f)), (2.0f * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f));
+		glVertex3f((2.0f * cos(i * (3.14f * 2.0f) / 50.0f)), (2.0f * sin(i * (3.14f * 2.0f) / 50.0f) * 1.5f), 0.0f);
 	}
 	glEnd();
 
@@ -228,7 +367,7 @@ void drawSmailey() {
 	glBegin(GL_POLYGON);
 	glColor3f(0.0f, 0.0f, 0.0f);
 	for (int i = 0; i <= 20; i++) {
-		glVertex2f(-0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f));
+		glVertex3f(-0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f), 0.0f);
 	}
 	glVertex3f(-1.0f, 0.5f, 0.0f);
 	glVertex3f(-0.5f, 0.5f, 0.0f);
@@ -236,7 +375,7 @@ void drawSmailey() {
 
 	glBegin(GL_POLYGON);
 	for (int i = 0; i <= 20; i++) {
-		glVertex2f(0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f));
+		glVertex3f(0.75f + (0.25f * cos(i * 3.14f / 20.0f)), 0.75f + (0.25f * sin(i * 3.14f / 20.0f) * 1.75f), 0.0f);
 	}
 	glVertex3f(0.5f, 0.5f, 0.0f);
 	glVertex3f(1.0f, 0.5f, 0.0f);
@@ -253,7 +392,7 @@ void drawSmailey() {
 	glBegin(GL_POLYGON);
 	glColor3f(0.0f, 0.0f, 0.0f);
 	for (int i = 20; i >= 0; i--) {
-		glVertex2f((1.0f * cos(i * 3.14f / 20.0f)), -0.75f + (1.0f * sin(i * 3.14f / 20.0f) * -1.0f));
+		glVertex3f((1.0f * cos(i * 3.14f / 20.0f)), -0.75f + (1.0f * sin(i * 3.14f / 20.0f) * -1.0f), 0.0f);
 	}
 	glEnd();
 }
