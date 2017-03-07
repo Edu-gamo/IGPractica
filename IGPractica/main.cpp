@@ -40,7 +40,7 @@ int main() {
 		return NULL;
 	}
 
-	//glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, key_callback);
 	int screenWidth, screenHeight;
 	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 
@@ -149,7 +149,30 @@ int main() {
 		glFrontFace(GL_CCW);
 
 		//Grass
-		glBegin(GL_POLYGON);
+		glBegin(GL_TRIANGLE_STRIP);
+		glColor3f(0.5f, 1.0f, 0.5f);
+		glVertex3f(-10.0f, -10.0f, 0.0f);
+		glVertex3f(10.0f, -10.0f, 0.0f);
+		glVertex3f(-10.0f, -6.5f, 0.0f);
+
+		glVertex3f(10.0f, -6.5f, 0.0f);
+
+		/*glVertex3f(9.0f, -6.3f, 0.0f);
+		glVertex3f(8.0f, -6.0f, 0.0f);
+		glVertex3f(7.0f, -6.4f, 0.0f);
+		glVertex3f(6.0f, -6.0f, 0.0f);
+		glVertex3f(5.0f, -6.3f, 0.0f);
+		glVertex3f(4.0f, -6.2f, 0.0f);
+		glVertex3f(3.0f, -6.5f, 0.0f);
+		glVertex3f(-3.0f, -6.5f, 0.0f);
+		glVertex3f(-4.0f, -6.2f, 0.0f);
+		glVertex3f(-5.0f, -6.3f, 0.0f);
+		glVertex3f(-6.0f, -6.0f, 0.0f);
+		glVertex3f(-7.0f, -6.4f, 0.0f);
+		glVertex3f(-8.0f, -6.3f, 0.0f);*/
+		glVertex3f(-9.0f, -6.4f, 0.0f);
+		glEnd();
+		/*glBegin(GL_POLYGON);
 		glColor3f(0.5f, 1.0f, 0.5f);
 		glVertex3f(-10.0f, -6.5f, 0.0f);
 		glVertex3f(-10.0f, -10.0f, 0.0f);
@@ -170,10 +193,10 @@ int main() {
 		glVertex3f(-7.0f, -6.4f, 0.0f);
 		glVertex3f(-8.0f, -6.3f, 0.0f);
 		glVertex3f(-9.0f, -6.4f, 0.0f);
-		glEnd();
+		glEnd();*/
 
 
-		glBegin(GL_POLYGON);
+		/*glBegin(GL_POLYGON);
 		glColor3f(0.5f, 0.5f, 0.5f);
 		glVertex3f(-10.0f, -8.5f, 0.0f);
 		glVertex3f(-10.0f, -10.0f, 0.0f);
@@ -194,11 +217,11 @@ int main() {
 		glVertex3f(-7.0f, -8.1f, 0.0f);
 		glVertex3f(-8.0f, -8.4f, 0.0f);
 		glVertex3f(-9.0f, -8.3f, 0.0f);
-		glEnd();
+		glEnd();*/
 
-		drawHouse();
+		//drawHouse();
 
-		drawSmailey(-8, 7, 1);
+		//drawSmailey(-8, 7, 1.5f);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
