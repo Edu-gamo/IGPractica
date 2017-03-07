@@ -7,9 +7,12 @@
 using namespace std;
 const GLint WIDTH = 800, HEIGHT = 600;
 
+bool swapCulling = false;
+
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	//Al pulsar Esc cerrar aplicacion
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
+	if (key == GLFW_KEY_W && action == GLFW_PRESS) swapCulling = !swapCulling;
 }
 
 void drawSmailey();
@@ -146,7 +149,12 @@ int main() {
 
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
+
+		if (swapCulling) {
+			glFrontFace(GL_CW);
+		} else {
+			glFrontFace(GL_CCW);
+		}
 
 		//Grass
 		glBegin(GL_TRIANGLE_STRIP);
@@ -157,71 +165,66 @@ int main() {
 
 		glVertex3f(10.0f, -6.5f, 0.0f);
 
-		/*glVertex3f(9.0f, -6.3f, 0.0f);
+		glVertex3f(-9.0f, -6.4f, 0.0f);
+		glVertex3f(-8.0f, -6.4f, 0.0f);
+		glVertex3f(-8.0f, -6.2f, 0.0f);
+		glVertex3f(-6.0f, -6.4f, 0.0f);
+		glVertex3f(-6.0f, -6.0f, 0.0f);
+		glVertex3f(-5.0f, -6.5f, 0.0f);
+		glVertex3f(-5.0f, -6.3f, 0.0f);
+		glVertex3f(-4.0f, -6.5f, 0.0f);
+		glVertex3f(-4.0f, -6.2f, 0.0f);
+		glVertex3f(-3.0f, -6.5f, 0.0f);
+		glVertex3f(3.0f, -6.5f, 0.0f);
+		glVertex3f(4.0f, -6.5f, 0.0f);
+		glVertex3f(4.0f, -6.2f, 0.0f);
+		glVertex3f(5.0f, -6.5f, 0.0f);
+		glVertex3f(5.0f, -6.3f, 0.0f);
+		glVertex3f(6.0f, -6.5f, 0.0f);
+		glVertex3f(6.0f, -6.0f, 0.0f);
+		glVertex3f(7.0f, -6.5f, 0.0f);
 		glVertex3f(8.0f, -6.0f, 0.0f);
-		glVertex3f(7.0f, -6.4f, 0.0f);
-		glVertex3f(6.0f, -6.0f, 0.0f);
-		glVertex3f(5.0f, -6.3f, 0.0f);
-		glVertex3f(4.0f, -6.2f, 0.0f);
-		glVertex3f(3.0f, -6.5f, 0.0f);
-		glVertex3f(-3.0f, -6.5f, 0.0f);
-		glVertex3f(-4.0f, -6.2f, 0.0f);
-		glVertex3f(-5.0f, -6.3f, 0.0f);
-		glVertex3f(-6.0f, -6.0f, 0.0f);
-		glVertex3f(-7.0f, -6.4f, 0.0f);
-		glVertex3f(-8.0f, -6.3f, 0.0f);*/
-		glVertex3f(-9.0f, -6.4f, 0.0f);
-		glEnd();
-		/*glBegin(GL_POLYGON);
-		glColor3f(0.5f, 1.0f, 0.5f);
-		glVertex3f(-10.0f, -6.5f, 0.0f);
-		glVertex3f(-10.0f, -10.0f, 0.0f);
-		glVertex3f(10.0f, -10.0f, 0.0f);
+		glVertex3f(8.0f, -6.5f, 0.0f);
+		glVertex3f(10.0f, -6.3f, 0.0f);
 		glVertex3f(10.0f, -6.5f, 0.0f);
+		glEnd();
 
-		glVertex3f(9.0f, -6.3f, 0.0f);
-		glVertex3f(8.0f, -6.1f, 0.0f);
-		glVertex3f(7.0f, -6.4f, 0.0f);
-		glVertex3f(6.0f, -6.0f, 0.0f);
-		glVertex3f(5.0f, -6.3f, 0.0f);
-		glVertex3f(4.0f, -6.2f, 0.0f);
-		glVertex3f(3.0f, -6.5f, 0.0f);
-		glVertex3f(-3.0f, -6.5f, 0.0f);
-		glVertex3f(-4.0f, -6.2f, 0.0f);
-		glVertex3f(-5.0f, -6.3f, 0.0f);
-		glVertex3f(-6.0f, -6.0f, 0.0f);
-		glVertex3f(-7.0f, -6.4f, 0.0f);
-		glVertex3f(-8.0f, -6.3f, 0.0f);
-		glVertex3f(-9.0f, -6.4f, 0.0f);
-		glEnd();*/
-
-
-		/*glBegin(GL_POLYGON);
+		//Street
+		glBegin(GL_TRIANGLE_STRIP);
 		glColor3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(-10.0f, -8.5f, 0.0f);
 		glVertex3f(-10.0f, -10.0f, 0.0f);
 		glVertex3f(10.0f, -10.0f, 0.0f);
+		glVertex3f(-10.0f, -8.5f, 0.0f);
+
 		glVertex3f(10.0f, -8.5f, 0.0f);
 
-		glVertex3f(9.0f, -8.3f, 0.0f);
-		glVertex3f(8.0f, -8.4f, 0.0f);
-		glVertex3f(7.0f, -8.1f, 0.0f);
-		glVertex3f(6.0f, -8.3f, 0.0f);
-		glVertex3f(5.0f, -8.0f, 0.0f);
-		glVertex3f(4.0f, -8.5f, 0.0f);
-		glVertex3f(3.0f, -8.2f, 0.0f);
-		glVertex3f(-3.0f, -8.2f, 0.0f);
-		glVertex3f(-4.0f, -8.5f, 0.0f);
-		glVertex3f(-5.0f, -8.0f, 0.0f);
-		glVertex3f(-6.0f, -8.3f, 0.0f);
-		glVertex3f(-7.0f, -8.1f, 0.0f);
+		glVertex3f(-9.0f, -8.4f, 0.0f);
 		glVertex3f(-8.0f, -8.4f, 0.0f);
-		glVertex3f(-9.0f, -8.3f, 0.0f);
-		glEnd();*/
+		glVertex3f(-8.0f, -8.1f, 0.0f);
+		glVertex3f(-6.0f, -8.4f, 0.0f);
+		glVertex3f(-6.0f, -8.2f, 0.0f);
+		glVertex3f(-5.0f, -8.5f, 0.0f);
+		glVertex3f(-5.0f, -8.3f, 0.0f);
+		glVertex3f(-4.0f, -8.5f, 0.0f);
+		glVertex3f(-4.0f, -8.2f, 0.0f);
+		glVertex3f(-3.0f, -8.5f, 0.0f);
+		glVertex3f(3.0f, -8.4f, 0.0f);
+		glVertex3f(4.0f, -8.5f, 0.0f);
+		glVertex3f(4.0f, -8.3f, 0.0f);
+		glVertex3f(5.0f, -8.5f, 0.0f);
+		glVertex3f(5.0f, -8.2f, 0.0f);
+		glVertex3f(6.0f, -8.5f, 0.0f);
+		glVertex3f(6.0f, -8.0f, 0.0f);
+		glVertex3f(7.0f, -8.5f, 0.0f);
+		glVertex3f(8.0f, -8.0f, 0.0f);
+		glVertex3f(8.0f, -8.5f, 0.0f);
+		glVertex3f(10.0f, -8.3f, 0.0f);
+		glVertex3f(10.0f, -8.5f, 0.0f);
+		glEnd();
 
-		//drawHouse();
+		drawHouse();
 
-		//drawSmailey(-8, 7, 1.5f);
+		drawSmailey(-8, 7, 1.5f);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
